@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :reflections, only: [ :index, :create ]
+  resource :user_strengths, only: [ :edit, :update ]
 end

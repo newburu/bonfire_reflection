@@ -1,0 +1,32 @@
+<div class="min-h-screen bg-slate-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-white mb-2">デザインする資質たち</h2>
+    <p class="text-center text-sm text-slate-400">あなたのTOP5の資質を選択してください</p>
+  </div>
+
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="bg-slate-800 py-8 px-4 shadow sm:rounded-lg sm:px-10 border border-slate-700">
+      <%= form_with url: user_strengths_path, method: :patch, class: "space-y-6" do |f| %>
+        
+        <% (1..5).each do |rank| %>
+          <div>
+            <label for="strength_<%= rank %>" class="block text-sm font-medium leading-6 text-slate-300">
+              <%= rank %>位の資質
+            </label>
+            <div class="mt-2">
+              <%= select_tag "strengths[#{rank}]", 
+                  options_from_collection_for_select(@strengths, :id, :name, @current_strength_ids[rank]), 
+                  prompt: "資質を選択してください",
+                  class: "block w-full rounded-md border-0 bg-slate-900 py-1.5 text-white shadow-sm ring-1 ring-inset ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-orange-500 sm:text-sm sm:leading-6" 
+              %>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="pt-4">
+          <%= f.submit "保存して始める", class: "flex w-full justify-center rounded-md bg-orange-600 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600 transition-colors" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

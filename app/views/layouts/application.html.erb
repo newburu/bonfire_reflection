@@ -47,6 +47,11 @@
               <% end %>
               <span class="text-sm font-medium text-slate-300 hidden sm:block"><%= current_user.name %></span>
             </div>
+            <%= link_to edit_user_registration_path, class: "text-sm font-semibold leading-6 text-slate-400 hover:text-white transition-colors flex items-center gap-1" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                <path fill-rule="evenodd" d="M7.84 1.804A1 1 0 018.82 1h2.36a1 1 0 01.98.804l.331 1.652a6.993 6.993 0 011.929 1.115l1.598-.54a1 1 0 011.186.447l1.18 2.044a1 1 0 01-.205 1.251l-1.267 1.113a7.047 7.047 0 010 2.228l1.267 1.113a1 1 0 01.206 1.25l-1.18 2.045a1 1 0 01-1.187.447l-1.598-.54a6.993 6.993 0 01-1.929 1.115l-.33 1.652a1 1 0 01-.98.804H8.82a1 1 0 01-.98-.804l-.331-1.652a6.993 6.993 0 01-1.929-1.115l-1.598.54a1 1 0 01-1.186-.447l-1.18-2.044a1 1 0 01.205-1.251l1.267-1.114a7.05 7.05 0 010-2.227L1.821 7.773a1 1 0 01-.206-1.25l1.18-2.045a1 1 0 011.187-.447l1.598.54A6.993 6.993 0 017.51 3.456l.33-1.652zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+              </svg>
+            <% end %>
             <%= button_to destroy_user_session_path, method: :delete, data: { turbo: false }, class: "text-sm font-semibold leading-6 text-slate-400 hover:text-white transition-colors" do %>
               ログアウト
             <% end %>
@@ -56,6 +61,23 @@
         </div>
       </nav>
     </header>
+
+    <% flash.each do |key, value| %>
+      <% 
+        color_class = case key.to_s
+        when "notice" then "bg-blue-900/50 border-blue-500 text-blue-100"
+        when "alert" then "bg-red-900/50 border-red-500 text-red-100"
+        else "bg-slate-800 border-slate-500 text-slate-100"
+        end
+      %>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <div class="<%= color_class %> border-l-4 p-4 rounded-r shadow-md" role="alert">
+          <p class="font-bold"><%= key == "alert" ? "Error" : "Notice" %></p>
+          <p><%= value %></p>
+        </div>
+      </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

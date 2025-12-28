@@ -17,7 +17,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if @user.persisted?
       sign_in @user
-      redirect_to root_path, notice: "おかえりなさい！"
+      if @user.strengths.empty?
+        redirect_to edit_user_strengths_path, notice: "#{provider.to_s.capitalize}で認証しました。まずは資質を登録してください。"
+      else
+        redirect_to root_path, notice: "おかえりなさい！"
+      end
     else
       Rails.logger.error "OmniAuth login failed. User errors: #{@user.errors.full_messages.join(', ')}"
       session["devise.#{provider}_data"] = request.env["omniauth.auth"].except(:extra)

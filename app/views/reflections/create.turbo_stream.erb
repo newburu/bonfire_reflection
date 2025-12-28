@@ -1,6 +1,2 @@
 <%= turbo_stream.append "reflections", @reflection %>
-<%= turbo_stream.update "new_reflection", "" %> <%# フォームのリセット用。ID指定が必要だが今回は簡易的に %>
-<%# フォームのリセットは本来Stimulusコントローラーで行うのがベターだが、今回は一旦テキストエリアのvalueを空にするJavaScriptを流す手もある %>
-<script>
-  document.querySelector("textarea[name='reflection[content]']").value = "";
-</script>
+<%= turbo_stream.update "new_reflection", "" %> <%# フォームのリセット用。ID指定が必要だが今回は簡易的に。Stimulus側でクリアするのでここは残しておいても害はないが、scriptは消す %>
