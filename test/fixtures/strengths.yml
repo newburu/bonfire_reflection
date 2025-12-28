@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  genius: MyString
+  balcony: MyText
+  basement: MyText
+  opposite_trait: MyString
+  opposite_description: MyText
+
+two:
+  name: MyString
+  genius: MyString
+  balcony: MyText
+  basement: MyText
+  opposite_trait: MyString
+  opposite_description: MyText
