@@ -71,7 +71,14 @@ end
 gem "gemini-ai"
 
 # 環境変数管理 (.env)
-gem "dotenv-rails", groups: [:development, :test]
+gem "dotenv-rails", groups: [ :development, :test ]
 
 # 画像保存 (Active Storage) 用の画像処理
 gem "image_processing", "~> 1.2"
+
+# Gemfile
+gem "devise"
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem "omniauth-twitter2" # X(Twitter) API v2対応
+gem "omniauth-rails_csrf_protection" # セキュリティ対策

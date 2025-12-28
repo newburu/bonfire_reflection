@@ -1,0 +1,35 @@
+<%# app/views/devise/sessions/new.html.erb %>
+<div class="min-h-screen flex items-center justify-center bg-slate-900 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8 bg-slate-800 p-10 rounded-xl shadow-2xl border border-slate-700">
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-orange-500">
+        焚き火リフレクション
+      </h2>
+      <p class="mt-2 text-center text-sm text-slate-400">
+        強みと共に、静かな夜を。
+      </p>
+    </div>
+    
+    <div class="mt-8 space-y-4">
+      <%# Google ログインボタン %>
+      <%= button_to user_google_oauth2_omniauth_authorize_path, 
+          data: { turbo: false }, 
+          class: "w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-white hover:bg-gray-100 transition-colors" do %>
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5 mr-2" alt="Google">
+        <span class="text-gray-700">Googleでログイン</span>
+      <% end %>
+
+      <%# X(Twitter) ログインボタン %>
+      <%= button_to user_twitter2_omniauth_authorize_path, 
+          data: { turbo: false }, 
+          class: "w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-black hover:bg-gray-900 transition-colors" do %>
+        <svg class="w-5 h-5 mr-2 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+        <span>Xでログイン</span>
+      <% end %>
+    </div>
+
+    <div class="mt-6 text-center text-xs text-slate-500">
+      アカウントを作成することで、利用規約に同意したことになります。
+    </div>
+  </div>
+</div>
