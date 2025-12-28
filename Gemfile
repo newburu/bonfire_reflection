@@ -73,8 +73,6 @@ gem "gemini-ai"
 # 環境変数管理 (.env)
 gem "dotenv-rails", groups: [ :development, :test ]
 
-# 画像保存 (Active Storage) 用の画像処理
-gem "image_processing", "~> 1.2"
 
 # Gemfile
 gem "devise"

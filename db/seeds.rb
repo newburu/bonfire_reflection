@@ -293,3 +293,41 @@ strengths_data.each do |data|
 end
 
 puts "Success: #{Strength.count} strengths created."
+
+# 開発環境用のテストユーザー作成
+if Rails.env.development?
+  # Userがなければ作成 (deviseなのでemail/password必須だが、omniauth前提のためダミーで作成する場合は注意。
+  # ここでは既存のUser取得または新規作成を試みる)
+  test_user = User.find_or_create_by!(email: "test@example.com") do |u|
+    u.name = "Test User"
+    u.password = "password"
+    u.password_confirmation = "password"
+  end
+
+  # 資質の設定 (1位: 慎重さ, 2位: 責任感, 3位: 最上志向, 4位: 親密性, 5位: 分析思考)
+  # 既存の関連をクリア
+  test_user.user_strengths.destroy_all
+
+  rankings = {
+    1 => "慎重さ",
+    2 => "責任感",
+    3 => "最上志向",
+    4 => "親密性",
+    5 => "分析思考"
+  }
+
+  rankings.each do |rank, strength_name|
+    strength = Strength.find_by(name: strength_name)
+    if strength
+      UserStrength.create!(
+        user: test_user,
+        strength: strength,
+        rank: rank
+      )
+    else
+      puts "Warning: Strength '#{strength_name}' not found."
+    end
+  end
+
+  puts "Success: Test user strengths created."
+end
