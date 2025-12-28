@@ -1,0 +1,88 @@
+<div class="min-h-screen bg-slate-900 text-slate-200">
+  <div class="relative overflow-hidden">
+    <!-- 装飾的な背景要素 -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
+      <div class="absolute top-20 right-10 w-72 h-72 bg-orange-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
+      <div class="absolute top-20 left-10 w-72 h-72 bg-red-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
+    </div>
+
+    <!-- コンテンツ -->
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 text-center lg:pt-32">
+      <h1 class="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-100 sm:text-7xl">
+        心に灯す、
+        <span class="relative whitespace-nowrap text-orange-500">
+          <span class="relative">静かな炎</span>
+        </span>
+      </h1>
+      
+      <p class="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-400">
+        忙しい日々の中で見失いがちな「自分自身の強み」。<br>
+        焚き火を眺めるような静かな時間の中で、<br>
+        あなたの内なる資質と向き合い、深く理解するための場所です。
+      </p>
+      
+      <div class="mt-10 flex justify-center gap-x-6">
+        <% if user_signed_in? %>
+          <%= link_to "リフレクションを始める", root_path, class: "rounded-full bg-orange-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600 transition-all duration-300" %>
+        <% else %>
+          <%= link_to "始める", new_user_session_path, class: "rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-all duration-300" %>
+        <% end %>
+        
+        <a href="#about" class="group inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-slate-300 hover:text-white transition-all duration-300 ring-1 ring-slate-700 hover:ring-slate-600">
+          詳しく見る <span aria-hidden="true" class="ml-2 transition-transform group-hover:translate-x-1">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 特徴セクション -->
+  <div id="about" class="py-24 sm:py-32 bg-slate-800/50">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl lg:text-center">
+        <h2 class="text-base font-semibold leading-7 text-orange-500">Concept</h2>
+        <p class="mt-2 text-3xl font-bold tracking-tight text-slate-100 sm:text-4xl">強みを深く知る旅へ</p>
+        <p class="mt-6 text-lg leading-8 text-slate-400">
+          ただ診断結果を見るだけでなく、それぞれの資質が持つ「天才性」や「影」の部分まで深く理解し、日常生活や仕事でどう活かせるかを探求します。
+        </p>
+      </div>
+      
+      <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+        <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+          <div class="flex flex-col">
+            <dt class="flex items-center gap-x-3 text-base font-semibold leading-7 text-slate-100">
+              <svg class="h-5 w-5 flex-none text-orange-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+              </svg>
+              バルコニーとベースメント
+            </dt>
+            <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-slate-400">
+              <p class="flex-auto">資質がプラスに働く状態（バルコニー）と、マイナスに働く状態（ベースメント）の両面を理解します。</p>
+            </dd>
+          </div>
+          <div class="flex flex-col">
+            <dt class="flex items-center gap-x-3 text-base font-semibold leading-7 text-slate-100">
+              <svg class="h-5 w-5 flex-none text-orange-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M2.25 12H4.5m.166-5.834l1.591 1.591" />
+              </svg>
+              対照的な資質
+            </dt>
+            <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-slate-400">
+              <p class="flex-auto">自分の資質とは正反対の特徴を持つ資質を知ることで、自分自身の輪郭をよりはっきりと浮かび上がらせます。</p>
+            </dd>
+          </div>
+          <div class="flex flex-col">
+            <dt class="flex items-center gap-x-3 text-base font-semibold leading-7 text-slate-100">
+              <svg class="h-5 w-5 flex-none text-orange-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+              </svg>
+              日々のリフレクション
+            </dt>
+            <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-slate-400">
+              <p class="flex-auto">日々の出来事と資質を結びつけて記録することで、自分のパターンに気づき、強みを意図的に使えるようになります。</p>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>
