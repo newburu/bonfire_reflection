@@ -5,18 +5,18 @@ export default class extends Controller {
 
   connect() {
     this.scrollToBottom()
-    this.observer = new MutationObserver(this.scrollToBottom.bind(this))
-    this.observer.observe(this.element, { childList: true, subtree: true })
-  }
-
-  disconnect() {
-    this.observer.disconnect()
+    this.observer = new MutationObserver((mutations) => {
+      this.scrollToBottom()
+    })
+    this.observer.observe(this.element, { childList: true, subtree: false })
   }
 
   scrollToBottom() {
-    this.element.scrollTo({
-      top: this.element.scrollHeight,
-      behavior: "smooth"
-    })
+    setTimeout(() => {
+      this.element.scrollTo({
+        top: this.element.scrollHeight,
+        behavior: "smooth"
+      })
+    }, 50)
   }
 }

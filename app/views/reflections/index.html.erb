@@ -1,15 +1,15 @@
 <%= turbo_stream_from "reflections" %>
-<div class="min-h-screen bg-slate-900 pb-24 relative overflow-hidden flex flex-col">
+<div class="h-screen bg-slate-900 relative overflow-hidden flex flex-col">
   <!-- 背景演出 -->
   <div class="fixed inset-0 pointer-events-none z-0">
     <div class="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-orange-600/20 rounded-full blur-[100px] animate-pulse"></div>
   </div>
 
   <!-- ヘッダー下部のスペース -->
-  <div class="h-4"></div>
+  <div class="h-4 flex-shrink-0"></div>
 
   <!-- タイムライン -->
-  <div id="reflections" class="flex-1 overflow-y-auto px-4 py-4 space-y-6 max-w-2xl mx-auto w-full z-10" data-controller="scroll">
+  <div id="reflections" class="flex-1 overflow-y-auto px-4 py-4 space-y-6 max-w-2xl mx-auto w-full z-10 overscroll-contain" data-controller="scroll">
     <!-- 最初のメッセージ（システムメッセージ風） -->
     <div class="flex justify-start">
       <div class="bg-slate-800 text-slate-300 rounded-2xl rounded-tl-none px-5 py-3 shadow-lg max-w-[85%] border border-slate-700/50">
@@ -21,16 +21,16 @@
   </div>
 
   <!-- 入力エリア -->
-  <div class="fixed bottom-0 left-0 right-0 bg-slate-900/80 backdrop-blur border-t border-slate-800 p-4 z-20">
+  <div class="flex-shrink-0 bg-slate-900/80 backdrop-blur border-t border-slate-800 p-4 z-20 pb-safe">
     <div class="max-w-2xl mx-auto">
       <%= form_with(model: @reflection, class: "flex gap-2 items-end", data: { controller: "reflection-form", action: "turbo:submit-end->reflection-form#clear" }) do |f| %>
         <%= f.text_area :content, 
             rows: 1, 
             placeholder: "今、何を感じていますか？ (Ctrl + Enterで送信)", 
-            class: "block w-full rounded-xl border-0 bg-slate-800 py-3 pl-4 pr-4 text-slate-100 placeholder:text-slate-500 focus:ring-2 focus:ring-orange-600 sm:text-sm sm:leading-6 resize-none",
-            data: { reflection_form_target: "input", action: "keydown->reflection-form#submit" }
+            class: "block w-full rounded-xl border-0 bg-slate-800 py-3 pl-4 pr-4 text-slate-100 placeholder:text-slate-500 focus:ring-2 focus:ring-orange-600 sm:text-sm sm:leading-6 resize-none max-h-40 overflow-y-auto",
+            data: { reflection_form_target: "input", action: "keydown->reflection-form#submit input->reflection-form#resize" }
         %>
-        <%= f.button type: "submit", class: "rounded-full bg-orange-600 p-3 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600 transition-all flex-shrink-0" do %>
+        <%= f.button type: "submit", class: "rounded-full bg-orange-600 p-3 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600 transition-all flex-shrink-0 mb-[1px]" do %>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
             <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
           </svg>

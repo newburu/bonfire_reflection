@@ -23,7 +23,7 @@
         <!-- メッセージ -->
         <% animate = local_assigns[:animate] || false %>
         <div class="bg-stone-900/80 text-orange-100/90 rounded-2xl rounded-tl-none px-5 py-4 shadow-sm border border-orange-500/10 backdrop-blur-sm">
-          <p class="text-sm whitespace-pre-wrap leading-relaxed" <%= 'data-controller="typewriter"' if animate %>><%= reflection.ai_question %></p>
+          <p class="text-sm whitespace-pre-wrap leading-relaxed" data-controller="typewriter" data-typewriter-animate-value="<%= animate %>"><%= reflection.ai_question %></p>
         </div>
       </div>
     </div>

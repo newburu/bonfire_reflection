@@ -1,9 +1,14 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static values = { speed: { type: Number, default: 30 } }
+  static values = {
+    speed: { type: Number, default: 30 },
+    animate: { type: Boolean, default: false }
+  }
 
   connect() {
+    if (!this.animateValue) return
+
     this.text = this.element.textContent.trim()
     this.element.textContent = ""
     this.index = 0
@@ -20,7 +25,7 @@ export default class extends Controller {
       setTimeout(this.type.bind(this), randomSpeed)
 
       // Trigger scroll
-      this.element.scrollIntoView({ behavior: "smooth", block: "nearest" })
+      this.element.scrollIntoView({ behavior: "auto", block: "nearest" })
     }
   }
 }
