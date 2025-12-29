@@ -1,3 +1,4 @@
+<%= turbo_stream_from "reflections" %>
 <div class="min-h-screen bg-slate-900 pb-24 relative overflow-hidden flex flex-col">
   <!-- 背景演出 -->
   <div class="fixed inset-0 pointer-events-none z-0">
@@ -8,7 +9,7 @@
   <div class="h-4"></div>
 
   <!-- タイムライン -->
-  <div id="reflections" class="flex-1 overflow-y-auto px-4 py-4 space-y-6 max-w-2xl mx-auto w-full z-10">
+  <div id="reflections" class="flex-1 overflow-y-auto px-4 py-4 space-y-6 max-w-2xl mx-auto w-full z-10" data-controller="scroll">
     <!-- 最初のメッセージ（システムメッセージ風） -->
     <div class="flex justify-start">
       <div class="bg-slate-800 text-slate-300 rounded-2xl rounded-tl-none px-5 py-3 shadow-lg max-w-[85%] border border-slate-700/50">

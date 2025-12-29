@@ -10,4 +10,8 @@ application.register("hello", HelloController)
 import ReflectionFormController from "./reflection_form_controller"
 application.register("reflection-form", ReflectionFormController)
 
+import ScrollController from "./scroll_controller"
+application.register("scroll", ScrollController)
 
+import TypewriterController from "./typewriter_controller"
+application.register("typewriter", TypewriterController)

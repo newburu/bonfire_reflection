@@ -8,11 +8,14 @@ class ReflectionsController < ApplicationController
 
   def create
     @reflection = current_user.reflections.build(reflection_params)
+    @reflection.ai_status = :generating
 
     if @reflection.save
+      ReflectionQuestionJob.perform_later(@reflection.id)
+
       respond_to do |format|
         format.turbo_stream
-        format.html { redirect_to reflections_path }
+        format.html { redirect_to reflections_path, notice: "Reflection was successfully created." }
       end
     else
       # エラー時は（今回は簡易的に）リダイレクトまたは再描画

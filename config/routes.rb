@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  devise_for :users, skip: :registrations, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+
+  devise_scope :user do
+    get "users/edit", to: "devise/registrations#edit", as: :edit_user_registration
+    put "users", to: "devise/registrations#update", as: :user_registration
+    delete "users", to: "devise/registrations#destroy"
+  end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
