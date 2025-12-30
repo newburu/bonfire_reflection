@@ -3,7 +3,15 @@ require "uri"
 require "json"
 
 class GeminiService
-  API_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent"
+  # 優先モデルリスト（性能が高い順 -> 軽量・フォールバック順）
+  ORDERED_MODELS = [
+    "gemini-3-flash-preview",
+    "gemini-2.5-pro",
+    "gemini-2.5-flash",
+    "gemini-2.0-flash",
+    "gemini-2.5-flash-lite",
+    "gemma-3-1b-it"
+  ].freeze
 
   def initialize
     @api_key = ENV["GEMINI_API_KEY"]
@@ -39,9 +47,26 @@ class GeminiService
       - 返答は話し言葉（です・ます調）で、自然な会話形式にしてください。
     PROMPT
 
-    uri = URI("#{API_ENDPOINT}?key=#{@api_key}")
+    ORDERED_MODELS.each do |model|
+      result = call_api(model, prompt)
+      return result if result
+      # 失敗した場合は次のモデルへ (ループ継続)
+    end
+
+    # 全モデル失敗時
+    Rails.logger.error("GeminiService: All models failed.")
+    nil
+  end
+
+  private
+
+  def call_api(model, prompt)
+    url = "https://generativelanguage.googleapis.com/v1beta/models/#{model}:generateContent"
+    uri = URI("#{url}?key=#{@api_key}")
+
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
+    http.read_timeout = 10 # タイムアウト設定
 
     request = Net::HTTP::Post.new(uri)
     request["Content-Type"] = "application/json"
@@ -52,22 +77,26 @@ class GeminiService
       } ]
     }.to_json
 
-    response = http.request(request)
+    begin
+      response = http.request(request)
 
-    if response.code == "200"
-      json = JSON.parse(response.body)
-      # 候補があるか確認
-      if json["candidates"] && json["candidates"].first && json["candidates"].first["content"]
-        json["candidates"].first["content"]["parts"].first["text"]
+      if response.code == "200"
+        json = JSON.parse(response.body)
+        if json["candidates"] && json["candidates"].first && json["candidates"].first["content"]
+          content = json["candidates"].first["content"]["parts"].first["text"]
+          Rails.logger.info("GeminiService: Success with #{model}")
+          content
+        end
+      elsif response.code == "429" || response.code == "503"
+        Rails.logger.warn("GeminiService: #{model} quota exceeded or unavailable (#{response.code}). Switching to next model...")
+        nil
       else
+        Rails.logger.error("GeminiService: #{model} API Error: #{response.code} - #{response.body}")
         nil
       end
-    else
-      Rails.logger.error("GeminiService API Error: #{response.code} - #{response.body}")
+    rescue => e
+      Rails.logger.error("GeminiService: #{model} Connection Error: #{e.message}")
       nil
     end
-  rescue => e
-    Rails.logger.error("GeminiService Error: #{e.message}")
-    nil
   end
 end
