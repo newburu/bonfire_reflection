@@ -9,7 +9,11 @@ Bundler.require(*Rails.groups)
 module BonfireReflection
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
+    # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.1
+
+    # Set default locale to Japanese
+    config.i18n.default_locale = :ja
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.

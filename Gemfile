@@ -80,3 +80,5 @@ gem "omniauth"
 gem "omniauth-google-oauth2"
 gem "omniauth-twitter2" # X(Twitter) API v2対応
 gem "omniauth-rails_csrf_protection" # セキュリティ対策
+
+gem "devise-i18n", "~> 1.15"

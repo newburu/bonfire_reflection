@@ -12,17 +12,22 @@
   <!-- ヘッダー下部のスペース -->
   <div class="h-4 flex-shrink-0"></div>
 
-  <!-- タイムライン -->
-  <div id="reflections" class="flex-1 overflow-y-auto px-4 py-4 space-y-6 max-w-2xl mx-auto w-full z-10 overscroll-contain" data-controller="scroll">
-    <!-- 最初のメッセージ（システムメッセージ風） -->
-    <% unless user_signed_in? %>
-      <div class="flex justify-center mb-4">
-        <div class="bg-orange-900/40 border border-orange-500/30 text-orange-200 rounded-lg px-3 py-2 text-xs text-center backdrop-blur-sm">
+  <!-- ゲストモード警告 (Sticky) -->
+  <% unless user_signed_in? %>
+    <div class="flex-shrink-0 px-4 pb-2 z-20 w-full max-w-2xl mx-auto">
+      <div class="flex justify-center">
+        <div class="bg-orange-900/60 border border-orange-500/30 text-orange-200 rounded-lg px-3 py-2 text-xs text-center backdrop-blur-md shadow-lg">
           🔥 現在は「ゲストモード」です。この焚き火は誰でも見ることができます。<br>
           <%= link_to "ログイン", new_user_session_path, class: "underline hover:text-white font-medium" %> すると、あなただけの焚き火になります。
         </div>
       </div>
-    <% end %>
+    </div>
+  <% end %>
+
+  <!-- タイムライン -->
+  <div id="reflections" class="flex-1 overflow-y-auto px-4 py-4 space-y-6 max-w-2xl mx-auto w-full z-10 overscroll-contain" data-controller="scroll">
+    <!-- 最初のメッセージ -->
+
     
     <div class="flex justify-start">
       <div class="bg-slate-800 text-slate-300 rounded-2xl rounded-tl-none px-5 py-3 shadow-lg max-w-[85%] border border-slate-700/50">

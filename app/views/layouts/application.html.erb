@@ -86,9 +86,9 @@
         else "bg-slate-800 border-slate-500 text-slate-100"
         end
       %>
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-        <div class="<%= color_class %> border-l-4 p-4 rounded-r shadow-md" role="alert">
-          <p class="font-bold"><%= key == "alert" ? "Error" : "Notice" %></p>
+      <div class="w-full px-4 sm:px-6 lg:px-8 mt-4">
+        <div class="<%= color_class %> border-l-4 p-4 rounded-r shadow-md max-w-7xl" role="alert">
+          <p class="font-bold"><%= key == "alert" ? "エラー" : "お知らせ" %></p>
           <p><%= value %></p>
         </div>
       </div>
