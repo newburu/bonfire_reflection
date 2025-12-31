@@ -37,24 +37,40 @@
         </div>
         <div class="flex flex-1 justify-end gap-x-6 items-center">
           <% if user_signed_in? %>
-            <div class="flex items-center gap-3">
-              <% if current_user.image.present? %>
-                <%= image_tag current_user.image, class: "h-8 w-8 rounded-full bg-slate-800 ring-2 ring-slate-800" %>
-              <% else %>
-                <div class="h-8 w-8 rounded-full bg-slate-700 flex items-center justify-center text-xs text-white ring-2 ring-slate-800">
-                  <%= current_user.name&.first&.upcase || "U" %>
+            <div data-controller="dropdown" data-action="click@window->dropdown#hide keydown@window->dropdown#hide" class="relative">
+              <button data-action="click->dropdown#toggle" class="flex items-center gap-3 focus:outline-none group">
+                <% if current_user.image.present? %>
+                  <%= image_tag current_user.image, class: "h-8 w-8 rounded-full bg-slate-800 ring-2 ring-slate-800 group-hover:ring-orange-500 transition-all" %>
+                <% else %>
+                  <div class="h-8 w-8 rounded-full bg-slate-700 flex items-center justify-center text-xs text-white ring-2 ring-slate-800 group-hover:ring-orange-500 transition-all">
+                    <%= current_user.name&.first&.upcase || "U" %>
+                  </div>
+                <% end %>
+                <span class="text-sm font-medium text-slate-300 group-hover:text-white hidden sm:block transition-colors"><%= current_user.name %></span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-500 group-hover:text-slate-300 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              <!-- Dropdown Menu -->
+              <div data-dropdown-target="menu" class="hidden absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-slate-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50 border border-slate-700">
+                <div class="py-1">
+                  <%= link_to edit_user_registration_path, class: "flex items-center px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 hover:text-white transition-colors" do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5 text-slate-400 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    設定
+                  <% end %>
+                  <%= button_to destroy_user_session_path, method: :delete, data: { turbo: false }, class: "flex w-full items-center px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 hover:text-white transition-colors" do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5 text-slate-400 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    ログアウト
+                  <% end %>
                 </div>
-              <% end %>
-              <span class="text-sm font-medium text-slate-300 hidden sm:block"><%= current_user.name %></span>
+              </div>
             </div>
-            <%= link_to edit_user_registration_path, class: "text-sm font-semibold leading-6 text-slate-400 hover:text-white transition-colors flex items-center gap-1" do %>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                <path fill-rule="evenodd" d="M7.84 1.804A1 1 0 018.82 1h2.36a1 1 0 01.98.804l.331 1.652a6.993 6.993 0 011.929 1.115l1.598-.54a1 1 0 011.186.447l1.18 2.044a1 1 0 01-.205 1.251l-1.267 1.113a7.047 7.047 0 010 2.228l1.267 1.113a1 1 0 01.206 1.25l-1.18 2.045a1 1 0 01-1.187.447l-1.598-.54a6.993 6.993 0 01-1.929 1.115l-.33 1.652a1 1 0 01-.98.804H8.82a1 1 0 01-.98-.804l-.331-1.652a6.993 6.993 0 01-1.929-1.115l-1.598.54a1 1 0 01-1.186-.447l-1.18-2.044a1 1 0 01.205-1.251l1.267-1.114a7.05 7.05 0 010-2.227L1.821 7.773a1 1 0 01-.206-1.25l1.18-2.045a1 1 0 011.187-.447l1.598.54A6.993 6.993 0 017.51 3.456l.33-1.652zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
-              </svg>
-            <% end %>
-            <%= button_to destroy_user_session_path, method: :delete, data: { turbo: false }, class: "text-sm font-semibold leading-6 text-slate-400 hover:text-white transition-colors" do %>
-              ログアウト
-            <% end %>
           <% else %>
             <%= link_to "ログイン", new_user_session_path, class: "text-sm font-semibold leading-6 text-slate-300 hover:text-white transition-colors" %>
           <% end %>
