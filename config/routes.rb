@@ -20,4 +20,7 @@ Rails.application.routes.draw do
 
   resources :reflections, only: [ :index, :create ]
   resource :user_strengths, only: [ :edit, :update ]
+
+  get "terms", to: "pages#terms"
+  get "privacy", to: "pages#privacy"
 end
