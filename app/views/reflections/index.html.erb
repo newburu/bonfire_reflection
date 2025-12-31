@@ -1,4 +1,8 @@
-<%= turbo_stream_from "reflections" %>
+<% if user_signed_in? %>
+  <%= turbo_stream_from "reflections_#{current_user.id}" %>
+<% else %>
+  <%= turbo_stream_from "reflections_public" %>
+<% end %>
 <div class="h-screen bg-slate-900 relative overflow-hidden flex flex-col">
   <!-- 背景演出 -->
   <div class="fixed inset-0 pointer-events-none z-0">
@@ -11,6 +15,15 @@
   <!-- タイムライン -->
   <div id="reflections" class="flex-1 overflow-y-auto px-4 py-4 space-y-6 max-w-2xl mx-auto w-full z-10 overscroll-contain" data-controller="scroll">
     <!-- 最初のメッセージ（システムメッセージ風） -->
+    <% unless user_signed_in? %>
+      <div class="flex justify-center mb-4">
+        <div class="bg-orange-900/40 border border-orange-500/30 text-orange-200 rounded-lg px-3 py-2 text-xs text-center backdrop-blur-sm">
+          🔥 現在は「ゲストモード」です。この焚き火は誰でも見ることができます。<br>
+          <%= link_to "ログイン", new_user_session_path, class: "underline hover:text-white font-medium" %> すると、あなただけの焚き火になります。
+        </div>
+      </div>
+    <% end %>
+    
     <div class="flex justify-start">
       <div class="bg-slate-800 text-slate-300 rounded-2xl rounded-tl-none px-5 py-3 shadow-lg max-w-[85%] border border-slate-700/50">
         <p class="text-sm">ようこそ、焚き火リフレクションへ。今の気持ちや、今日あったことを少しずつ言葉にしてみましょう。</p>

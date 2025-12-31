@@ -1,2 +1,2 @@
-<%= turbo_stream.append "reflections", @reflection %>
+<%# Model broadcast handles append %>
 <%= turbo_stream.update "new_reflection", "" %> <%# フォームのリセット用。ID指定が必要だが今回は簡易的に。Stimulus側でクリアするのでここは残しておいても害はないが、scriptは消す %>

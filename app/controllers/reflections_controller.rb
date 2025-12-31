@@ -1,13 +1,23 @@
 class ReflectionsController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user! # ゲスト利用を許可するため削除
 
   def index
-    @reflections = current_user.reflections.recent
+    if user_signed_in?
+      @reflections = current_user.reflections.recent
+    else
+      @reflections = Reflection.where(user_id: nil).recent.limit(10) # ゲストは最新10件程度（または制限なし）
+    end
     @reflection = Reflection.new
   end
 
   def create
-    @reflection = current_user.reflections.build(reflection_params)
+    if user_signed_in?
+      @reflection = current_user.reflections.build(reflection_params)
+    else
+      @reflection = Reflection.new(reflection_params)
+      # user_id は nil
+    end
+
     @reflection.ai_status = :generating
 
     if @reflection.save
@@ -18,7 +28,6 @@ class ReflectionsController < ApplicationController
         format.html { redirect_to reflections_path, notice: "Reflection was successfully created." }
       end
     else
-      # エラー時は（今回は簡易的に）リダイレクトまたは再描画
       redirect_to reflections_path, alert: "投稿できませんでした。"
     end
   end
