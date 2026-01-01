@@ -76,7 +76,7 @@ end
 gem "gemini-ai"
 
 # 環境変数管理 (.env)
-gem "dotenv-rails", groups: [ :development, :test ]
+gem "dotenv-rails"
 
 
 # Gemfile
