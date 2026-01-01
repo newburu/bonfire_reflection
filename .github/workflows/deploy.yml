@@ -20,6 +20,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
+      - name: Create master.key
+        run: echo "${{ secrets.RAILS_MASTER_KEY }}" > config/master.key
+
       - name: Install Kamal
         run: gem install kamal
 
