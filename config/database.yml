@@ -13,11 +13,9 @@
 # gem "pg"
 #
 default: &default
-  adapter: postgresql
-  encoding: unicode
-  # For details on connection pooling, see Rails configuration guide
-  # https://guides.rubyonrails.org/configuring.html#database-pooling
-  max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 
 development:
@@ -28,15 +26,15 @@ development:
   # To create additional roles in PostgreSQL see `$ createuser --help`.
   # When left blank, PostgreSQL will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: bonfire_reflection
+  username: <%= ENV["DB_USER"] || "root" %>
 
   # The password associated with the PostgreSQL role (username).
-  #password:
+  password: <%= ENV["DB_PASSWORD"] || "" %>
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
   # domain sockets, so uncomment these lines.
-  #host: localhost
+  host: 127.0.0.1
 
   # The TCP port the server listens on. Defaults to 5432.
   # If your server runs on a different port number, change accordingly.
@@ -88,7 +86,7 @@ production:
   primary: &primary_production
     <<: *default
     database: bonfire_reflection_production
-    username: <%= ENV["POSTGRES_USER"] || "bonfire_reflection" %>
+    username: <%= ENV["DB_USER"] || "bonfire_reflection" %>
     password: <%= ENV["DB_PASSWORD"] %>
     host: <%= ENV["DB_HOST"] %>
   cache:

@@ -52,11 +52,9 @@ env:
     # WEB_CONCURRENCY: 2
 
     # Match this to any external database server to configure Active Record correctly
-    # Use bonfire_reflection-db for a db accessory server on same machine via local kamal docker network.
-    DB_HOST: bonfire_reflection-db
-    POSTGRES_USER: bonfire_reflection
-    POSTGRES_DB: bonfire_reflection_production
-    POSTGRES_PASSWORD: <%= ENV["DB_PASSWORD"] %>
+    DB_HOST: <%= ENV["DB_HOST"] %>
+    DB_USER: bonfire_reflection
+    DB_PASSWORD: <%= ENV["DB_PASSWORD"] %>
 
     # Log everything from Rails
     # RAILS_LOG_LEVEL: debug
@@ -99,20 +97,9 @@ builder:
 #   user: app
 
 # Use accessory services (secrets come from .kamal/secrets).
-accessories:
-  db:
-    image: postgres:15
-    host: <%= ENV["SERVER_IP"] %>
-    # port: "127.0.0.1:5432:5432" # Commented out to allow multiple Postgres instances on same VPS
-    env:
-      clear:
-        POSTGRES_DB: bonfire_reflection_production
-        POSTGRES_USER: bonfire_reflection
-        POSTGRES_HOST_AUTH_METHOD: trust # relying on internal docker network isolation & secrets
-      secret:
-        - POSTGRES_PASSWORD
-    files:
-       # - config/mysql/production.cnf:/etc/mysql/my.cnf
-       # - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
-    directories:
-      - data:/var/lib/postgresql/data
+# Use accessory services (secrets come from .kamal/secrets).
+# accessories:
+#   db:
+#     image: mysql:8.0
+#     host: 192.168.0.2
+#     port: "127.0.0.1:3306:3306"
