@@ -88,8 +88,9 @@ production:
   primary: &primary_production
     <<: *default
     database: bonfire_reflection_production
-    username: bonfire_reflection
-    password: <%= ENV["BONFIRE_REFLECTION_DATABASE_PASSWORD"] %>
+    username: <%= ENV["POSTGRES_USER"] || "bonfire_reflection" %>
+    password: <%= ENV["DB_PASSWORD"] %>
+    host: <%= ENV["DB_HOST"] %>
   cache:
     <<: *primary_production
     database: bonfire_reflection_production_cache
