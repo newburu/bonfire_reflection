@@ -53,8 +53,8 @@ env:
 
     # Match this to any external database server to configure Active Record correctly
     DB_HOST: <%= ENV["DB_HOST"] %>
-    DB_USER: bonfire_reflection
-    DB_PASSWORD: <%= ENV["DB_PASSWORD"] %>
+    DB_USER: <%= ENV["DB_USER"] || "bonfire_reflection" %>
+    # DB_PASSWORD is injected via 'secret' section above
 
     # Log everything from Rails
     # RAILS_LOG_LEVEL: debug
