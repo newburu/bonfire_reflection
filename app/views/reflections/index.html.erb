@@ -39,7 +39,7 @@
   </div>
 
   <!-- 入力エリア -->
-  <div class="flex-shrink-0 bg-slate-900/80 backdrop-blur border-t border-slate-800 p-4 z-20 pb-safe">
+  <div class="flex-shrink-0 bg-slate-900/80 backdrop-blur border-t border-slate-800 p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] z-20">
     <div class="max-w-2xl mx-auto">
       <%= form_with(model: @reflection, class: "flex gap-2 items-end", data: { controller: "reflection-form", action: "turbo:submit-end->reflection-form#clear" }) do |f| %>
         <%= f.text_area :content, 
