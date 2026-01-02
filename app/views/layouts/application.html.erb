@@ -27,8 +27,21 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+
+    <!-- Google Analytics -->
+    <% if ENV["GOOGLE_ANALYTICS_ID"].present? %>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=<%= ENV["GOOGLE_ANALYTICS_ID"] %>"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '<%= ENV["GOOGLE_ANALYTICS_ID"] %>');
+      </script>
+    <% end %>
   </head>
 
   <body class="bg-slate-900 text-slate-200 h-[100dvh] flex flex-col overflow-hidden">
